@@ -205,6 +205,8 @@ public:
         tempWarning,
         tempShutdown,
         analogMode,
+        outputHighMask,     // bit per GPIO: unmapped pins held as outputs at HIGH (3.3V)
+        outputLowMask,      // bit per GPIO: unmapped pins held as outputs at LOW (GND)
         // Add here
         settingsTypesCount
     } settingsTypes_e;
@@ -224,6 +226,8 @@ public:
         {"TempWarning",         tempWarning         },
         {"TempDanger",          tempShutdown        },
         {"AnalogMode",          analogMode          },
+        {"PinsHigh",            outputHighMask      },
+        {"PinsLow",             outputLowMask       },
     };
 
     enum {
