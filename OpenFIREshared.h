@@ -29,7 +29,12 @@
 
 //// BOARD IDENTIFIERS (for Desktop App identification and determining presets)
 
-#ifdef ARDUINO_ADAFRUIT_ITSYBITSY_RP2040
+// Boards without their own Arduino core entry are identified by a build flag (see the firmware's CI builds).
+#ifdef OPENFIRE_TENSTAR_RP2350_USB
+    #define OPENFIRE_BOARD "tenstarRP2350USB"
+#elifdef OPENFIRE_TENSTAR_RP2040_USB
+    #define OPENFIRE_BOARD "tenstarRP2040USB"
+#elifdef ARDUINO_ADAFRUIT_ITSYBITSY_RP2040
     #define OPENFIRE_BOARD "adafruitItsyRP2040"
 #elifdef ARDUINO_ADAFRUIT_KB2040_RP2040
     #define OPENFIRE_BOARD "adafruitKB2040"
@@ -444,6 +449,25 @@ public:
         //=====================================================================================================================
         /* more RP-series boards should be added here */
         //=====================================================================================================================
+        // Tenstar Robot RP2350 USB (USB-A plug board)
+        // Board Type: RP2350A
+        // Notes: GPIO 16-17 aren't broken out; 9-13, 18-25 are pads on the underside; onboard WS2812 RGB LED on GPIO 22
+        {"tenstarRP2350USB",        {/*00*/ btnTrigger,     btnGunA,        btnGunB,        btnPedal,       btnPedal2,
+                                     /*05*/ btnUnmapped,    solenoidPin,    rumblePin,      wiiClockGen,    btnUnmapped,
+                                     /*10*/ btnUnmapped,    btnUnmapped,    btnUnmapped,    btnUnmapped,    camSDA,
+                                     /*15*/ camSCL,         unavailable,    unavailable,    btnUnmapped,    btnUnmapped,
+                                     /*20*/ btnUnmapped,    btnUnmapped,    neoPixel,       btnUnmapped,    btnUnmapped,
+                                     /*25*/ btnUnmapped,    btnUnmapped,    btnUnmapped,    btnUnmapped,    btnUnmapped     }},
+        //=====================================================================================================================
+        // Tenstar Robot RP2040 USB: same layout as the RP2350 version
+        // Board Type: RP2040
+        {"tenstarRP2040USB",        {/*00*/ btnTrigger,     btnGunA,        btnGunB,        btnPedal,       btnPedal2,
+                                     /*05*/ btnUnmapped,    solenoidPin,    rumblePin,      wiiClockGen,    btnUnmapped,
+                                     /*10*/ btnUnmapped,    btnUnmapped,    btnUnmapped,    btnUnmapped,    camSDA,
+                                     /*15*/ camSCL,         unavailable,    unavailable,    btnUnmapped,    btnUnmapped,
+                                     /*20*/ btnUnmapped,    btnUnmapped,    neoPixel,       btnUnmapped,    btnUnmapped,
+                                     /*25*/ btnUnmapped,    btnUnmapped,    btnUnmapped,    btnUnmapped,    btnUnmapped     }},
+        //=====================================================================================================================
         // Espressif ESP32 S3 WROOM-1 DevkitC-1
         // Board Type: ESP32
         {"esp32-s3-devkitc-1",      {/*00*/ unavailable,    btnTrigger,     btnGunRight,    btnUnmapped,    analogX,
@@ -500,6 +524,8 @@ public:
         {"adafruitKB2040",          "Adafruit Keeboar KB2040"},
         {"arduinoNanoRP2040",       "Arduino Nano Connect RP2040"},
         {"waveshareZero",           "Waveshare Zero RP2040"},
+        {"tenstarRP2350USB",        "Tenstar RP2350 USB"},
+        {"tenstarRP2040USB",        "Tenstar RP2040 USB"},
         {"esp32-s3-devkitc-1",      "ESP32-S3 WROOM-1 DevkitC-1"},
         {"waveshare-esp32-s3-pico", "Waveshare ESP32-S3-Pico"},
         {"waveshare-esp32-s3-zero", "Waveshare ESP32-S3-Zero"},
@@ -723,6 +749,25 @@ public:
         // ***
 
 
+        //=====================================================================================================================
+        // Tenstar Robot RP2350 USB, drawn pad side up (as printed on the board): rows interleave the edge pads with the
+        // underside pads; rows 1-2 are the USB plug.
+        // Board Type: RP2350A
+        {"tenstarRP2350USB",        {/*00*/ 3  | posRight,  5  | posRight,  7  | posRight,  9  | posRight,  11 | posRight,
+                                     /*05*/ 13 | posRight,  15 | posRight,  17 | posRight,  19 | posRight,  6  | posRight,
+                                     /*10*/ 8  | posRight,  10 | posRight,  12 | posRight,  14 | posRight,  19 | posLeft,
+                                     /*15*/ 17 | posLeft,     posNothing,     posNothing,   16 | posRight,  18 | posRight,
+                                     /*20*/ 18 | posLeft,   16 | posLeft,   14 | posLeft,   12 | posLeft,   10 | posLeft,
+                                     /*25*/ 8  | posLeft,   15 | posLeft,   13 | posLeft,   11 | posLeft,   9  | posLeft    }},
+        //=====================================================================================================================
+        // Tenstar Robot RP2040 USB: same layout as the RP2350 version
+        // Board Type: RP2040
+        {"tenstarRP2040USB",        {/*00*/ 3  | posRight,  5  | posRight,  7  | posRight,  9  | posRight,  11 | posRight,
+                                     /*05*/ 13 | posRight,  15 | posRight,  17 | posRight,  19 | posRight,  6  | posRight,
+                                     /*10*/ 8  | posRight,  10 | posRight,  12 | posRight,  14 | posRight,  19 | posLeft,
+                                     /*15*/ 17 | posLeft,     posNothing,     posNothing,   16 | posRight,  18 | posRight,
+                                     /*20*/ 18 | posLeft,   16 | posLeft,   14 | posLeft,   12 | posLeft,   10 | posLeft,
+                                     /*25*/ 8  | posLeft,   15 | posLeft,   13 | posLeft,   11 | posLeft,   9  | posLeft    }},
         //=====================================================================================================================
         // Espressif ESP32 S3 WROOM-1 DevkitC-1 N16R8
         // Board Type: ESP32-S3
